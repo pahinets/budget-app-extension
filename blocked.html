@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Доступ обмежено — Реєстр Часу</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:   #1A1A1A;
+      --paper: #F8F7F4;
+      --red:   #991b1b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .masthead-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      opacity: .6;
+      margin-bottom: 8px;
+    }
+    .masthead-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--ink);
+      margin: 0 auto 20px;
+      opacity: .3;
+    }
+
+    /* ── Main card ── */
+    .card {
+      border: 1px solid var(--ink);
+      background: white;
+      padding: 48px 56px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .card-issue {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      opacity: .5;
+      margin-bottom: 16px;
+    }
+
+    .card-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-style: italic;
+      letter-spacing: -.04em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .card-site {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--red);
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      opacity: .1;
+      margin: 24px 0;
+    }
+
+    /* ── Stats row ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin: 28px 0;
+    }
+    .stat-item { text-align: center; }
+    .stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      letter-spacing: -.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-val.red { color: var(--red); }
+    .stat-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .5;
+    }
+
+    /* ── Progress ── */
+    .progress-wrap { margin: 24px 0 8px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .5;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(26,26,26,.1);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--red);
+    }
+
+    /* ── Body text ── */
+    .card-body {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: .7;
+      margin: 24px 0;
+    }
+
+    /* ── Actions ── */
+    .actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn-back {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .15s;
+    }
+    .btn-back:hover { background: black; }
+
+    .btn-override {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .btn-override:hover { background: var(--ink); color: white; }
+
+    /* ── Countdown ── */
+    .countdown {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      opacity: .4;
+      margin-top: 20px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 40px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .35;
+      text-align: center;
+    }
+
+    /* ── Decorative column lines ── */
+    .card-cols {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0 24px;
+      text-align: left;
+      margin: 24px 0;
+    }
+    .col-divider { background: rgba(26,26,26,.12); }
+    .col-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: .5;
+      margin-bottom: 4px;
+    }
+    .col-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-label">Реєстр Часу • Time Ledger</div>
+  <div class="masthead-rule"></div>
+</div>
+
+<div class="card">
+  <div class="card-issue">Доступ обмежено — Ліміт вичерпано</div>
+
+  <h1 class="card-headline">Сеанс<br>завершено</h1>
+  <div class="card-site" id="site-display">—</div>
+
+  <div class="divider"></div>
+
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-val red" id="stat-used">—</div>
+      <div class="stat-lbl">Використано</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val" id="stat-limit">—</div>
+      <div class="stat-lbl">Ліміт</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val" id="stat-over">—</div>
+      <div class="stat-lbl">Перевищення</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>0</span>
+      <span id="prog-label">100%+</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:100%"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="card-body">
+    Ви досягли денного ліміту перебування на цьому ресурсі.
+    Доступ буде автоматично відновлено опівночі.
+  </p>
+
+  <div class="card-cols">
+    <div>
+      <div class="col-label">Скидання</div>
+      <div class="col-val" id="reset-time">Опівночі</div>
+    </div>
+    <div class="col-divider"></div>
+    <div>
+      <div class="col-label">Залишок дня</div>
+      <div class="col-val" id="time-left">—</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-back" onclick="history.length > 1 ? history.back() : window.close()">
+      ← Повернутися
+    </button>
+    <button class="btn-override" id="btn-override">
+      Ігнорувати ліміт
+    </button>
+  </div>
+
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<footer>
+  Особистий Бюджет • Реєстр Часу v1.0
+</footer>
+
+<script>
+  const ext = (typeof browser !== "undefined" && browser.storage) ? browser : chrome;
+
+  function fmtTime(sec) {
+    sec = Math.floor(sec);
+    if (sec <= 0) return '0хв';
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    if (h > 0) return h + 'г ' + m + 'хв';
+    return m > 0 ? m + 'хв' : (sec % 60) + 'с';
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const site  = params.get('site')  || 'невідомий сайт';
+  const used  = parseInt(params.get('used'))  || 0;
+  const limit = parseInt(params.get('limit')) || 1800;
+  const over  = Math.max(0, used - limit);
+
+  document.getElementById('site-display').textContent = site;
+  document.getElementById('stat-used').textContent  = fmtTime(used);
+  document.getElementById('stat-limit').textContent = fmtTime(limit);
+  document.getElementById('stat-over').textContent  = over > 0 ? '+' + fmtTime(over) : '0хв';
+
+  const pct = Math.min(200, limit > 0 ? (used / limit) * 100 : 100);
+  document.getElementById('progress-fill').style.width = Math.min(100, pct) + '%';
+  document.getElementById('prog-label').textContent = pct.toFixed(0) + '%';
+
+  // Time until midnight
+  function updateCountdown() {
+    const now = new Date();
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    const diff = Math.floor((midnight - now) / 1000);
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    document.getElementById('time-left').textContent = h + 'г ' + m + 'хв';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 30000);
+
+  // Midnight time
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  document.getElementById('reset-time').textContent =
+    midnight.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }) + ' (північ)';
+
+  // Override button — розблокувати на 5 хвилин
+  let overrideClicks = 0;
+  document.getElementById('btn-override').addEventListener('click', async () => {
+    overrideClicks++;
+    if (overrideClicks < 3) {
+      document.getElementById('countdown').textContent =
+        `Натисніть ще ${3 - overrideClicks} раз(и) для підтвердження`;
+      return;
+    }
+    // Знімаємо блокування
+    const data = await ext.storage.local.get(['blocked', 'usage', 'limits']);
+    const blocked = data.blocked || {};
+    const usage   = data.usage   || {};
+    const limits  = data.limits  || {};
+    // Тимчасово зменшуємо використання щоб дати 5 хвилин
+    usage[site] = Math.max(0, (limits[site] ?? 1800) - 300);
+    delete blocked[site];
+    await ext.storage.local.set({ blocked, usage });
+    history.back();
+  });
+</script>
+</body>
+</html>
