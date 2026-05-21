@@ -1,16 +1,9 @@
-// ── Background Service Worker (Chrome) / Background Script (Firefox) ──────
-// Сумісний з Chrome MV3 та Firefox MV3 (128+) і Firefox MV3 зі scripts
-
 const DEFAULT_SITES = [
-  "youtube.com", "twitter.com", "x.com", "instagram.com",
-  "facebook.com", "tiktok.com", "reddit.com", "twitch.tv",
-  "netflix.com", "vk.com", "9gag.com", "pinterest.com"
+  "youtube.com", "x.com", "instagram.com", "pinterest.com"
 ];
 
-// Firefox MV3 може не мати globalThis.chrome в усіх контекстах
 const ext = (typeof chrome !== 'undefined' ? chrome : browser);
 
-// ── Сховище ────────────────────────────────────────────────────────────────
 async function getStore(keys) {
   return new Promise(resolve => ext.storage.local.get(keys, resolve));
 }
@@ -38,7 +31,6 @@ async function initStorage() {
   }
 }
 
-// ── Перевірка блокування ───────────────────────────────────────────────────
 function extractHostname(url) {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
@@ -79,7 +71,6 @@ async function checkAndBlock(tabId, url) {
   }
 }
 
-// ── Трекінг часу ──────────────────────────────────────────────────────────
 let activeTab = { tabId: null, site: null, startTime: null };
 
 async function startTracking(tabId, url) {
@@ -113,7 +104,6 @@ async function stopTracking() {
   activeTab = { tabId: null, site: null, startTime: null };
 }
 
-// ── Події вкладок ─────────────────────────────────────────────────────────
 ext.tabs.onActivated.addListener(({ tabId }) => {
   ext.tabs.get(tabId, tab => {
     if (ext.runtime.lastError) return; // вкладка вже закрита
@@ -135,7 +125,6 @@ ext.tabs.onRemoved.addListener(tabId => {
   if (activeTab.tabId === tabId) stopTracking();
 });
 
-// ── Скидання опівночі ─────────────────────────────────────────────────────
 function nextMidnightMs() {
   const midnight = new Date();
   midnight.setHours(24, 0, 0, 0);
@@ -159,8 +148,6 @@ if (ext.alarms) {
   });
 }
 
-// ── Ініціалізація ─────────────────────────────────────────────────────────
 ext.runtime.onInstalled.addListener(initStorage);
 
-// Firefox не завжди викликає onStartup для розширень — initStorage при старті
 initStorage();

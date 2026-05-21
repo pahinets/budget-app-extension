@@ -28,35 +28,28 @@
       flex-direction: column;
     }
 
+    /* ── Responsive: narrow popup (e.g. Android Chrome extension) ── */
+    @media (max-width: 360px) {
+      body { width: 100vw; }
+    }
+
     /* ── Header ── */
     header {
       background: white;
       border-bottom: 1px solid var(--border);
-      padding: 16px 20px 12px;
+      padding: 14px 16px 10px;
     }
     .header-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      opacity: .7;
-      color: #4b5563;
-      margin-bottom: 4px;
+      font-size: 9px; font-weight: 700; letter-spacing: .25em;
+      text-transform: uppercase; opacity: .7; color: #4b5563; margin-bottom: 4px;
     }
     .header-title {
       font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      font-style: italic;
-      letter-spacing: -.04em;
-      line-height: 1;
+      font-size: 26px; font-style: italic; letter-spacing: -.04em; line-height: 1;
     }
     .header-date {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      opacity: .5;
-      margin-top: 4px;
+      font-size: 9px; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .5; margin-top: 4px;
     }
 
     /* ── Tabs ── */
@@ -66,243 +59,145 @@
       background: white;
     }
     .tab-btn {
-      flex: 1;
-      padding: 8px;
-      background: none;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      cursor: pointer;
-      color: var(--ink);
-      opacity: .4;
+      flex: 1; padding: 8px 4px;
+      background: none; border: none;
+      font-family: 'Inter', sans-serif; font-size: 8px;
+      font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      cursor: pointer; color: var(--ink); opacity: .4;
       border-bottom: 2px solid transparent;
       transition: opacity .15s, border-color .15s;
+      /* Touch-friendly tap target */
+      min-height: 40px;
     }
     .tab-btn:hover { opacity: .7; }
     .tab-btn.active { opacity: 1; border-bottom-color: var(--ink); }
 
     /* ── Content ── */
-    .content { flex: 1; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
-    .panel { display: none; flex-direction: column; gap: 12px; }
+    .content { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .panel { display: none; flex-direction: column; gap: 10px; }
     .panel.active { display: flex; }
 
     /* ── Section label ── */
     .section-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      opacity: .6;
-      margin-bottom: 2px;
+      font-size: 9px; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; opacity: .6; margin-bottom: 2px;
     }
 
     /* ── Status card ── */
     .status-card {
       border: 1px solid var(--border);
-      background: white;
-      padding: 14px 16px;
+      background: white; padding: 12px 14px;
     }
     .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
+      display: flex; justify-content: space-between;
+      align-items: baseline; margin-bottom: 6px; gap: 8px;
     }
     .site-name {
       font-family: 'Playfair Display', serif;
-      font-size: 15px;
-      font-style: italic;
+      font-size: 14px; font-style: italic;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;
     }
-    .time-display {
-      font-family: 'Playfair Display', serif;
-      font-size: 13px;
-    }
+    .time-display { font-family: 'Playfair Display', serif; font-size: 12px; white-space: nowrap; }
     .time-display.over { color: var(--red); }
-    .progress-track {
-      width: 100%;
-      height: 2px;
-      background: rgba(26,26,26,.1);
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--ink);
-      transition: width .3s;
-    }
+    .progress-track { width: 100%; height: 2px; background: rgba(26,26,26,.1); }
+    .progress-fill { height: 100%; background: var(--ink); transition: width .3s; }
     .progress-fill.over { background: var(--red); }
-    .pct-label {
-      font-size: 9px;
-      letter-spacing: .1em;
-      opacity: .5;
-      margin-top: 4px;
-      text-align: right;
-    }
+    .pct-label { font-size: 9px; letter-spacing: .1em; opacity: .5; margin-top: 3px; text-align: right; }
 
-    /* ── Empty state ── */
+    /* ── Empty ── */
     .empty {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 14px;
-      opacity: .4;
-      text-align: center;
-      padding: 20px 0;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 13px; opacity: .4; text-align: center; padding: 16px 0;
     }
 
-    /* ── Form elements ── */
+    /* ── Form ── */
     .field { display: flex; flex-direction: column; gap: 4px; }
     .field label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      opacity: .7;
+      font-size: 9px; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; opacity: .7;
     }
     .field input, .field select {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      background: transparent;
-      border: none;
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      background: transparent; border: none;
       border-bottom: 1px solid rgba(26,26,26,.3);
-      padding: 4px 0 6px;
-      outline: none;
-      color: var(--ink);
-      width: 100%;
+      padding: 4px 0 6px; outline: none; color: var(--ink); width: 100%;
       transition: border-color .15s;
     }
     .field input:focus, .field select:focus { border-bottom-color: var(--ink); }
 
     .site-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 0;
-      border-bottom: 1px solid rgba(26,26,26,.08);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid rgba(26,26,26,.08);
+      gap: 8px; min-height: 44px;
     }
     .site-row:last-child { border-bottom: none; }
-    .site-row-name { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; }
-    .site-row-limit { font-size: 11px; opacity: .6; }
+    .site-row-name { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; flex: 1; }
+    .site-row-limit { font-size: 11px; opacity: .6; white-space: nowrap; }
     .btn-remove {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--red);
-      background: none;
-      border: none;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity .15s;
-      padding: 2px 4px;
+      font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--red); background: none; border: none; cursor: pointer;
+      padding: 4px 6px; transition: opacity .15s; flex-shrink: 0;
     }
-    .site-row:hover .btn-remove { opacity: 1; }
 
     /* ── Buttons ── */
     .btn-primary {
-      font-family: 'Inter', sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      background: var(--ink);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      cursor: pointer;
-      width: 100%;
-      transition: background .15s;
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      background: var(--ink); color: white; border: none;
+      padding: 10px 16px; cursor: pointer; width: 100%;
+      transition: background .15s; min-height: 44px;
     }
     .btn-primary:hover { background: black; }
     .btn-primary:disabled { opacity: .4; cursor: default; }
 
     .btn-text {
-      font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      background: none;
-      border: none;
-      border-bottom: 1px solid var(--ink);
-      cursor: pointer;
-      padding: 1px 2px 2px;
-      color: var(--ink);
-      transition: background .15s, color .15s;
+      font-family: 'Inter', sans-serif; font-size: 9px;
+      font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      background: none; border: none; border-bottom: 1px solid var(--ink);
+      cursor: pointer; padding: 1px 2px 2px; color: var(--ink);
+      transition: background .15s, color .15s; min-height: 36px;
     }
     .btn-text:hover { background: var(--ink); color: white; }
 
-    .row-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
-
-    /* ── Summary row ── */
+    /* ── Summary ── */
     .summary {
-      display: flex;
-      gap: 12px;
-      border: 1px solid var(--border);
-      background: white;
-      padding: 12px 16px;
+      display: flex; gap: 8px;
+      border: 1px solid var(--border); background: white; padding: 10px 12px;
     }
-    .summary-item { flex: 1; }
+    .summary-item { flex: 1; min-width: 0; }
     .summary-val {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      letter-spacing: -.03em;
-      line-height: 1;
+      font-size: 18px; letter-spacing: -.03em; line-height: 1;
     }
     .summary-lbl {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      opacity: .5;
-      margin-top: 3px;
+      font-size: 8px; font-weight: 700; letter-spacing: .15em;
+      text-transform: uppercase; opacity: .5; margin-top: 3px;
     }
 
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 8px 20px;
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      opacity: .4;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .inline-form { display: flex; gap: 8px; align-items: flex-end; }
-    .inline-form .field { flex: 1; }
-    .inline-form .btn-text { white-space: nowrap; margin-bottom: 6px; }
-
+    /* ── Add block ── */
     .add-block {
-      border: 1px solid var(--border);
-      background: white;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      border: 1px solid var(--border); background: white;
+      padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;
     }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+    /* ── Badges ── */
     .badge-blocked {
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--red);
-      border: 1px solid var(--red);
-      padding: 1px 5px;
+      font-size: 7px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--red); border: 1px solid var(--red); padding: 1px 4px; white-space: nowrap;
     }
     .badge-ok {
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--green);
-      border: 1px solid var(--green);
-      padding: 1px 5px;
+      font-size: 7px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--green); border: 1px solid var(--green); padding: 1px 4px; white-space: nowrap;
     }
+
+    /* ── Row actions ── */
+    .row-actions {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+
+
   </style>
 </head>
 <body>
@@ -358,8 +253,8 @@
       <input type="number" id="default-limit" placeholder="30" min="1" max="1440" />
     </div>
 
-    <div class="row-actions">
-      <button class="btn-text" id="btn-reset-today">Скинути сьогоднішній облік</button>
+    <div class="row-actions" style="margin-top:4px;">
+      <button class="btn-text" id="btn-reset-today">Скинути облік</button>
       <button class="btn-text" id="btn-unblock-all">Розблокувати всі</button>
     </div>
 
@@ -367,7 +262,7 @@
       <button class="btn-primary" id="btn-save-settings">Застосувати зміни</button>
     </div>
 
-    <div style="border-top:1px solid rgba(26,26,26,.1); padding-top:12px; margin-top:4px;">
+    <div style="border-top:1px solid rgba(26,26,26,.1); padding-top:10px; margin-top:4px;">
       <div class="section-label" style="margin-bottom:8px;">Небезпечна зона</div>
       <button class="btn-text" id="btn-clear-all" style="color:var(--red); border-color:var(--red);">Очистити всі дані</button>
     </div>
@@ -375,10 +270,6 @@
 
 </div>
 
-<footer>
-  <span>Time Ledger v1.0</span>
-  <span id="footer-status"></span>
-</footer>
 
 <script src="popup.js"></script>
 </body>

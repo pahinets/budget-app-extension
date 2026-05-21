@@ -39,14 +39,8 @@ async function loadData() {
   const limits  = data.limits  || {};
   const blocked = data.blocked || {};
 
-  // Header date
-  $('header-date').textContent = fmtDate(new Date());
 
-  // Footer status
-  const blockedCount = Object.values(blocked).filter(Boolean).length;
-  $('footer-status').textContent = blockedCount > 0
-    ? `${blockedCount} заблоковано`
-    : 'Все активно';
+
 
   // ── Overview: summary ──
   const totalUsed = Object.values(usage).reduce((a, b) => a + b, 0);
