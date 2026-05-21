@@ -22,15 +22,13 @@
       font-family: 'Inter', sans-serif;
       background: var(--paper);
       color: var(--ink);
+      /* Фіксуємо ширину для настільних браузерів, мінімальну для мобільних */
       width: 380px;
+      max-width: 100%;
       min-height: 480px;
       display: flex;
       flex-direction: column;
-    }
-
-    /* ── Responsive: narrow popup (e.g. Android Chrome extension) ── */
-    @media (max-width: 360px) {
-      body { width: 100vw; }
+      overflow-x: hidden;
     }
 
     /* ── Header ── */
@@ -66,7 +64,6 @@
       cursor: pointer; color: var(--ink); opacity: .4;
       border-bottom: 2px solid transparent;
       transition: opacity .15s, border-color .15s;
-      /* Touch-friendly tap target */
       min-height: 40px;
     }
     .tab-btn:hover { opacity: .7; }
@@ -90,7 +87,7 @@
     }
     .status-row {
       display: flex; justify-content: space-between;
-      align-items: baseline; margin-bottom: 6px; gap: 8px;
+      align-items: center; margin-bottom: 6px; gap: 8px;
     }
     .site-name {
       font-family: 'Playfair Display', serif;
@@ -131,7 +128,7 @@
       gap: 8px; min-height: 44px;
     }
     .site-row:last-child { border-bottom: none; }
-    .site-row-name { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; flex: 1; }
+    .site-row-name { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .site-row-limit { font-size: 11px; opacity: .6; white-space: nowrap; }
     .btn-remove {
       font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -164,10 +161,11 @@
       display: flex; gap: 8px;
       border: 1px solid var(--border); background: white; padding: 10px 12px;
     }
-    .summary-item { flex: 1; min-width: 0; }
+    .summary-item { flex: 1; min-width: 0; text-align: center; }
     .summary-val {
       font-family: 'Playfair Display', serif;
-      font-size: 18px; letter-spacing: -.03em; line-height: 1;
+      font-size: 16px; letter-spacing: -.03em; line-height: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .summary-lbl {
       font-size: 8px; font-weight: 700; letter-spacing: .15em;
@@ -196,14 +194,11 @@
       display: flex; justify-content: space-between;
       align-items: center; gap: 8px; flex-wrap: wrap;
     }
-
-
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-label">Реєстр Часу</div>
   <div class="header-title">Контроль доступу</div>
   <div class="header-date" id="header-date"></div>
 </header>
@@ -215,15 +210,12 @@
 </div>
 
 <div class="content">
-
-  <!-- OVERVIEW -->
   <div class="panel active" id="tab-overview">
     <div id="summary-block" class="summary"></div>
     <div class="section-label">Активність сьогодні</div>
     <div id="usage-list"></div>
   </div>
 
-  <!-- SITES -->
   <div class="panel" id="tab-sites">
     <div class="section-label">Відстежувані сайти</div>
     <div id="sites-list"></div>
@@ -244,7 +236,6 @@
     </div>
   </div>
 
-  <!-- SETTINGS -->
   <div class="panel" id="tab-settings">
     <div class="section-label">Глобальні параметри</div>
 
@@ -267,9 +258,7 @@
       <button class="btn-text" id="btn-clear-all" style="color:var(--red); border-color:var(--red);">Очистити всі дані</button>
     </div>
   </div>
-
 </div>
-
 
 <script src="popup.js"></script>
 </body>
