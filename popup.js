@@ -1,11 +1,7 @@
-// ── Cross-browser API normalization ─────────────────────────────────────
 const ext = (typeof browser !== 'undefined' && browser.storage) ? browser : chrome;
-
-// ── Popup Script ───────────────────────────────────────────────────────────
 
 const $ = id => document.getElementById(id);
 
-// Форматування секунд → "1г 23хв" або "45хв"
 function fmtTime(sec) {
   sec = Math.floor(sec);
   if (sec <= 0) return '0хв';
@@ -21,7 +17,6 @@ function fmtDate(d) {
   return d.toLocaleDateString('uk-UA', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -31,7 +26,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// ── Load & Render ─────────────────────────────────────────────────────────
 async function loadData() {
   const data = await ext.storage.local.get(['sites', 'usage', 'limits', 'blocked']);
   const sites   = data.sites   || [];
@@ -39,10 +33,6 @@ async function loadData() {
   const limits  = data.limits  || {};
   const blocked = data.blocked || {};
 
-
-
-
-  // ── Overview: summary ──
   const totalUsed = Object.values(usage).reduce((a, b) => a + b, 0);
   const totalLimit = sites.reduce((a, s) => a + (limits[s] ?? 1800), 0);
   const blockedSites = Object.values(blocked).filter(Boolean).length;
@@ -62,7 +52,6 @@ async function loadData() {
     </div>
   `;
 
-  // ── Overview: usage list ──
   if (sites.length === 0) {
     $('usage-list').innerHTML = '<div class="empty">Сайти не додано до реєстру</div>';
   } else {
@@ -91,7 +80,6 @@ async function loadData() {
     }).join('');
   }
 
-  // ── Sites tab ──
   if (sites.length === 0) {
     $('sites-list').innerHTML = '<div class="empty" style="padding:12px 0">Список порожній</div>';
   } else {
@@ -106,7 +94,6 @@ async function loadData() {
       `;
     }).join('');
 
-    // Remove buttons
     document.querySelectorAll('.btn-remove').forEach(btn => {
       btn.addEventListener('click', async () => {
         const site = btn.dataset.site;
@@ -124,12 +111,10 @@ async function loadData() {
     });
   }
 
-  // ── Settings: default limit ──
   const anyLimit = sites.length > 0 ? (limits[sites[0]] ?? 1800) : 1800;
   $('default-limit').value = Math.round(anyLimit / 60);
 }
 
-// ── Add site ──────────────────────────────────────────────────────────────
 $('btn-add-site').addEventListener('click', async () => {
   const rawSite  = $('new-site').value.trim().toLowerCase().replace(/^www\./, '').replace(/https?:\/\//, '');
   const limitMin = parseInt($('new-limit').value) || 30;
@@ -156,11 +141,9 @@ $('btn-add-site').addEventListener('click', async () => {
   loadData();
 });
 
-// Enter key in add form
 $('new-site').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-add-site').click(); });
 $('new-limit').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-add-site').click(); });
 
-// ── Settings actions ──────────────────────────────────────────────────────
 $('btn-save-settings').addEventListener('click', async () => {
   const limitMin = parseInt($('default-limit').value) || 30;
   const d = await ext.storage.local.get(['sites', 'limits']);
@@ -189,5 +172,4 @@ $('btn-clear-all').addEventListener('click', async () => {
   loadData();
 });
 
-// ── Init ──────────────────────────────────────────────────────────────────
 loadData();

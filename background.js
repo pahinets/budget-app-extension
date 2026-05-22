@@ -12,7 +12,7 @@ async function setStore(obj) {
 }
 
 async function initStorage() {
-  const data = await getStore(['sites', 'limits', 'usage', 'lastReset', 'blocked']);
+  const data = await getStore(['sites', 'limits', 'usage', 'lastReset', 'blocked', 'ignored']);
   const today = new Date().toDateString();
 
   if (!data.sites) {
@@ -27,7 +27,7 @@ async function initStorage() {
     const sites = data.sites || DEFAULT_SITES;
     const usage = {};
     sites.forEach(s => { usage[s] = 0; });
-    await setStore({ usage, lastReset: today, blocked: {} });
+    await setStore({ usage, lastReset: today, blocked: {}, ignored: {} });
   }
 }
 
@@ -47,14 +47,17 @@ async function checkAndBlock(tabId, url) {
   const hostname = extractHostname(url);
   if (!hostname) return;
 
-  const data = await getStore(['sites', 'usage', 'limits', 'blocked']);
+  const data = await getStore(['sites', 'usage', 'limits', 'blocked', 'ignored']);
   const sites   = data.sites   || [];
   const usage   = data.usage   || {};
   const limits  = data.limits  || {};
   const blocked = data.blocked || {};
+  const ignored = data.ignored || {};
 
   const matchedSite = sites.find(s => hostname === s || hostname.endsWith('.' + s));
   if (!matchedSite) return;
+
+  if (ignored[matchedSite]) return;
 
   const used  = usage[matchedSite]  || 0;
   const limit = limits[matchedSite] ?? 1800;
@@ -66,7 +69,6 @@ async function checkAndBlock(tabId, url) {
     const blockedUrl = ext.runtime.getURL(
       `blocked.html?site=${encodeURIComponent(matchedSite)}&used=${used}&limit=${limit}`
     );
-    // chrome.tabs.update працює однаково у Chrome і Firefox
     ext.tabs.update(tabId, { url: blockedUrl });
   }
 }
@@ -106,7 +108,7 @@ async function stopTracking() {
 
 ext.tabs.onActivated.addListener(({ tabId }) => {
   ext.tabs.get(tabId, tab => {
-    if (ext.runtime.lastError) return; // вкладка вже закрита
+    if (ext.runtime.lastError) return;
     startTracking(tabId, tab.url);
     checkAndBlock(tabId, tab.url);
   });
@@ -131,7 +133,6 @@ function nextMidnightMs() {
   return midnight.getTime();
 }
 
-// Chrome: chrome.alarms; Firefox: підтримує теж
 if (ext.alarms) {
   ext.alarms.create('midnight-reset', {
     when: nextMidnightMs(),
@@ -143,7 +144,7 @@ if (ext.alarms) {
       const { sites } = await getStore('sites');
       const usage = {};
       (sites || DEFAULT_SITES).forEach(s => { usage[s] = 0; });
-      await setStore({ usage, lastReset: new Date().toDateString(), blocked: {} });
+      await setStore({ usage, lastReset: new Date().toDateString(), blocked: {}, ignored: {} });
     }
   });
 }

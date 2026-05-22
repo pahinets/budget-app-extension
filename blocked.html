@@ -7,13 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --ink:   #1A1A1A;
       --paper: #F8F7F4;
       --red:   #991b1b;
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background: var(--paper);
@@ -25,8 +23,6 @@
       justify-content: center;
       padding: clamp(1.25rem, 5vw, 2.5rem) clamp(1rem, 4vw, 1.25rem);
     }
-
-    /* ── Masthead ── */
     .masthead { text-align: center; margin-bottom: clamp(1.5rem, 5vw, 3rem); }
     .masthead-label {
       font-size: 10px; font-weight: 700; letter-spacing: .3em;
@@ -36,8 +32,6 @@
       width: 60px; height: 1px; background: var(--ink);
       margin: 0 auto 20px; opacity: .3;
     }
-
-    /* ── Main card ── */
     .card {
       border: 1px solid var(--ink);
       background: white;
@@ -46,32 +40,26 @@
       max-width: 600px;
       text-align: center;
     }
-
     .card-issue {
       font-size: 9px; font-weight: 700; letter-spacing: .3em;
       text-transform: uppercase; opacity: .5; margin-bottom: 14px;
     }
-
     .card-headline {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.5rem, 10vw, 3rem);
       font-style: italic; letter-spacing: -.04em;
       line-height: 1.05; margin-bottom: 8px;
     }
-
     .card-site {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1rem, 4vw, 1.25rem);
       color: var(--red); margin-bottom: clamp(1rem, 4vw, 2rem); font-style: italic;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-
     .divider {
       width: 100%; height: 1px; background: var(--ink);
       opacity: .1; margin: clamp(1rem, 3vw, 1.5rem) 0;
     }
-
-    /* ── Stats ── */
     .stats {
       display: flex; justify-content: center;
       gap: clamp(1.5rem, 5vw, 3rem); margin: clamp(1rem, 3vw, 1.75rem) 0;
@@ -88,8 +76,6 @@
       font-size: 8px; font-weight: 700; letter-spacing: .2em;
       text-transform: uppercase; opacity: .5;
     }
-
-    /* ── Progress ── */
     .progress-wrap { margin: clamp(1rem, 3vw, 1.5rem) 0 8px; }
     .progress-label {
       display: flex; justify-content: space-between;
@@ -98,15 +84,11 @@
     }
     .progress-track { width: 100%; height: 2px; background: rgba(26,26,26,.1); }
     .progress-fill { height: 100%; background: var(--red); }
-
-    /* ── Body text ── */
     .card-body {
       font-family: 'Playfair Display', serif; font-style: italic;
       font-size: clamp(0.875rem, 3vw, 1rem);
       line-height: 1.6; opacity: .7; margin: clamp(1rem, 3vw, 1.5rem) 0;
     }
-
-    /* ── Two columns ── */
     .card-cols {
       display: grid;
       grid-template-columns: 1fr 1px 1fr;
@@ -119,22 +101,17 @@
       text-transform: uppercase; opacity: .5; margin-bottom: 4px;
     }
     .col-val { font-family: 'Playfair Display', serif; font-size: clamp(0.875rem, 3vw, 0.9375rem); font-style: italic; }
-
-    /* ── Actions ── */
     .actions {
       display: flex; gap: 12px; justify-content: center;
       margin-top: clamp(1.25rem, 4vw, 2rem); flex-wrap: wrap;
     }
-
     .btn-back, .btn-override {
       font-family: 'Inter', sans-serif; font-size: 10px;
       font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
       padding: clamp(0.75rem, 3vw, 0.875rem) clamp(1rem, 4vw, 1.75rem);
       cursor: pointer; min-height: 48px;
-      /* Full width on very small screens */
       flex: 1 1 auto; max-width: 200px;
     }
-
     .btn-back {
       background: var(--ink); color: white; border: none;
       transition: background .15s;
@@ -142,24 +119,17 @@
       align-items: center; justify-content: center;
     }
     .btn-back:hover { background: black; }
-
     .btn-override {
       background: transparent; color: var(--ink);
       border: 1px solid var(--ink);
       transition: background .15s, color .15s;
     }
     .btn-override:hover { background: var(--ink); color: white; }
-
-    /* ── Countdown ── */
     .countdown {
       font-size: 10px; font-weight: 600; letter-spacing: .15em;
       text-transform: uppercase; opacity: .4; margin-top: 16px;
       min-height: 18px;
     }
-
-
-
-    /* ── Tiny screens: collapse cols to rows ── */
     @media (max-width: 360px) {
       .card-cols {
         grid-template-columns: 1fr;
@@ -216,7 +186,7 @@
     Доступ буде автоматично відновлено опівночі.
   </p>
 
-  <div class="card-cols">
+<div class="card-cols">
     <div>
       <div class="col-label">Скидання</div>
       <div class="col-val" id="reset-time">Опівночі</div>
@@ -229,7 +199,7 @@
   </div>
 
   <div class="actions">
-    <button class="btn-back" onclick="history.length > 1 ? history.back() : window.close()">
+    <button class="btn-back" id="btn-back">
       ← Повернутися
     </button>
     <button class="btn-override" id="btn-override">
@@ -240,68 +210,6 @@
   <div class="countdown" id="countdown"></div>
 </div>
 
-
-<script>
-  const ext = (typeof browser !== "undefined" && browser.storage) ? browser : chrome;
-
-  function fmtTime(sec) {
-    sec = Math.floor(sec);
-    if (sec <= 0) return '0хв';
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    if (h > 0) return h + 'г ' + m + 'хв';
-    return m > 0 ? m + 'хв' : (sec % 60) + 'с';
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  const site  = params.get('site')  || 'невідомий сайт';
-  const used  = parseInt(params.get('used'))  || 0;
-  const limit = parseInt(params.get('limit')) || 1800;
-  const over  = Math.max(0, used - limit);
-
-  document.getElementById('site-display').textContent = site;
-  document.getElementById('stat-used').textContent  = fmtTime(used);
-  document.getElementById('stat-limit').textContent = fmtTime(limit);
-  document.getElementById('stat-over').textContent  = over > 0 ? '+' + fmtTime(over) : '0хв';
-
-  const pct = Math.min(200, limit > 0 ? (used / limit) * 100 : 100);
-  document.getElementById('progress-fill').style.width = Math.min(100, pct) + '%';
-  document.getElementById('prog-label').textContent = pct.toFixed(0) + '%';
-
-  function updateCountdown() {
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0);
-    const diff = Math.floor((midnight - now) / 1000);
-    const h = Math.floor(diff / 3600);
-    const m = Math.floor((diff % 3600) / 60);
-    document.getElementById('time-left').textContent = h + 'г ' + m + 'хв';
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 30000);
-
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
-  document.getElementById('reset-time').textContent =
-    midnight.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }) + ' (північ)';
-
-  let overrideClicks = 0;
-  document.getElementById('btn-override').addEventListener('click', async () => {
-    overrideClicks++;
-    if (overrideClicks < 3) {
-      document.getElementById('countdown').textContent =
-        'Натисніть ще ' + (3 - overrideClicks) + ' раз(и) для підтвердження';
-      return;
-    }
-    const data = await ext.storage.local.get(['blocked', 'usage', 'limits']);
-    const blocked = data.blocked || {};
-    const usage   = data.usage   || {};
-    const limits  = data.limits  || {};
-    usage[site] = Math.max(0, (limits[site] ?? 1800) - 300);
-    delete blocked[site];
-    await ext.storage.local.set({ blocked, usage });
-    history.back();
-  });
-</script>
+<script src="blocked.js"></script>
 </body>
 </html>

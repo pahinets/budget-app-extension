@@ -1,22 +1,22 @@
-// ── Content Script ─────────────────────────────────────────────────────────
-
 (async () => {
   const hostname = window.location.hostname.replace(/^www\./, '');
 
-  // Нормалізуємо API: Firefox має browser.*, Chrome — chrome.*
   const ext = (typeof browser !== 'undefined' && browser.storage)
     ? browser
     : chrome;
 
   try {
-    const data = await ext.storage.local.get(['sites', 'blocked', 'usage', 'limits']);
+    const data = await ext.storage.local.get(['sites', 'blocked', 'usage', 'limits', 'ignored']);
     const sites   = data.sites   || [];
     const blocked = data.blocked || {};
     const usage   = data.usage   || {};
     const limits  = data.limits  || {};
+    const ignored = data.ignored || {};
 
     const matchedSite = sites.find(s => hostname === s || hostname.endsWith('.' + s));
     if (!matchedSite) return;
+
+    if (ignored[matchedSite]) return;
 
     const used  = usage[matchedSite]  || 0;
     const limit = limits[matchedSite] ?? 1800;

@@ -22,7 +22,6 @@
       font-family: 'Inter', sans-serif;
       background: var(--paper);
       color: var(--ink);
-      /* Фіксуємо ширину для настільних браузерів, мінімальну для мобільних */
       width: 380px;
       max-width: 100%;
       min-height: 480px;
@@ -31,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Header ── */
     header {
       background: white;
       border-bottom: 1px solid var(--border);
@@ -50,7 +48,6 @@
       text-transform: uppercase; opacity: .5; margin-top: 4px;
     }
 
-    /* ── Tabs ── */
     .tabs {
       display: flex;
       border-bottom: 1px solid var(--border);
@@ -69,18 +66,15 @@
     .tab-btn:hover { opacity: .7; }
     .tab-btn.active { opacity: 1; border-bottom-color: var(--ink); }
 
-    /* ── Content ── */
     .content { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
     .panel { display: none; flex-direction: column; gap: 10px; }
     .panel.active { display: flex; }
 
-    /* ── Section label ── */
     .section-label {
       font-size: 9px; font-weight: 700; letter-spacing: .2em;
       text-transform: uppercase; opacity: .6; margin-bottom: 2px;
     }
 
-    /* ── Status card ── */
     .status-card {
       border: 1px solid var(--border);
       background: white; padding: 12px 14px;
@@ -101,13 +95,11 @@
     .progress-fill.over { background: var(--red); }
     .pct-label { font-size: 9px; letter-spacing: .1em; opacity: .5; margin-top: 3px; text-align: right; }
 
-    /* ── Empty ── */
     .empty {
       font-family: 'Playfair Display', serif; font-style: italic;
       font-size: 13px; opacity: .4; text-align: center; padding: 16px 0;
     }
 
-    /* ── Form ── */
     .field { display: flex; flex-direction: column; gap: 4px; }
     .field label {
       font-size: 9px; font-weight: 700; letter-spacing: .2em;
@@ -136,7 +128,6 @@
       padding: 4px 6px; transition: opacity .15s; flex-shrink: 0;
     }
 
-    /* ── Buttons ── */
     .btn-primary {
       font-family: 'Inter', sans-serif; font-size: 10px;
       font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
@@ -156,7 +147,6 @@
     }
     .btn-text:hover { background: var(--ink); color: white; }
 
-    /* ── Summary ── */
     .summary {
       display: flex; gap: 8px;
       border: 1px solid var(--border); background: white; padding: 10px 12px;
@@ -172,14 +162,12 @@
       text-transform: uppercase; opacity: .5; margin-top: 3px;
     }
 
-    /* ── Add block ── */
     .add-block {
       border: 1px solid var(--border); background: white;
       padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;
     }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    /* ── Badges ── */
     .badge-blocked {
       font-size: 7px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
       color: var(--red); border: 1px solid var(--red); padding: 1px 4px; white-space: nowrap;
@@ -189,7 +177,6 @@
       color: var(--green); border: 1px solid var(--green); padding: 1px 4px; white-space: nowrap;
     }
 
-    /* ── Row actions ── */
     .row-actions {
       display: flex; justify-content: space-between;
       align-items: center; gap: 8px; flex-wrap: wrap;
